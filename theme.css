@@ -790,8 +790,9 @@ body.mia-mono-links {
 	text-decoration-thickness: var(--mia-link-decoration-thickness);
 	text-decoration-color: var(--link-external-decoration-color);
 }
+
 .markdown-source-view .cm-url {
-	text-decoration-line: underline;
+	text-decoration-line: underline !important;
 	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
 	text-underline-offset: var(--mia-link-decoration-offset);
 }
@@ -801,7 +802,7 @@ body.mia-mono-links {
 .metadata-property-value .external-link:hover,
 .markdown-rendered a.external-link:hover {
 	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline;
+	text-decoration: underline !important;
 	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
 	text-decoration-color: var(--link-external-decoration-hover) !important;
 }
@@ -852,7 +853,7 @@ body.mia-mono-links {
 .markdown-rendered
 	mark
 	a:is(.internal-link, .external-link, .internal-link.is-unresolved):hover {
-	filter: invert();
+	color: var(--accent-color);
 }
 
 /* Adjust spelling underline for consistency */
