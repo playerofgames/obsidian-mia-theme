@@ -265,7 +265,7 @@ div.mod-header
 	border-left-style: var(--mia-blockquote-reading-style, solid);
 }
 .markdown-source-view.is-live-preview .cm-quote {
-	margin-left: calc(var(--list-indent) - 1.9rem) !important;
+	margin-left: calc(var(--list-indent) - 1.9rem);
 }
 
 /** preformatted: shade entire line, and hide indentation width */
@@ -438,7 +438,7 @@ a.tag,
 
 /** Fix Outliner plugin styling */
 .cm-formatting-list-ul {
-	margin-right: 0em !important;
+	margin-right: 0em;
 }
 .list-bullet {
 	padding-right: 0.3em;
@@ -458,8 +458,7 @@ a.tag,
 		--font-text-size: 12pt !important;
 		--text-normal: black;
 		--list-marker-color: black;
-
-		color: black !important;
+		color: black;
 	}
 }
 
@@ -777,7 +776,7 @@ body.mia-mono-links {
 .markdown-source-view .cm-hmd-internal-link:hover .is-unresolved .cm-underline,
 .metadata-property-value .internal-link.is-unresolved:hover,
 .markdown-rendered a.internal-link.is-unresolved:hover {
-	color: var(--text-normal) !important;
+	color: var(--text-normal);
 	text-decoration-color: var(--text-faint);
 }
 
@@ -792,7 +791,7 @@ body.mia-mono-links {
 	text-decoration-color: var(--link-external-decoration-color);
 }
 .markdown-source-view .cm-url {
-	text-decoration-line: underline !important;
+	text-decoration-line: underline;
 	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
 	text-underline-offset: var(--mia-link-decoration-offset);
 }
@@ -802,7 +801,7 @@ body.mia-mono-links {
 .metadata-property-value .external-link:hover,
 .markdown-rendered a.external-link:hover {
 	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline !important;
+	text-decoration: underline;
 	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
 	text-decoration-color: var(--link-external-decoration-hover) !important;
 }
@@ -874,11 +873,11 @@ body.mia-mono-links {
 /*** IMAGE ALT CLASSES ***/
 
 /** show top 250 px */
-.image-embed[alt="banner-top-250"] img {
-	width: 100vw !important;
-	height: 250px !important;
-	object-fit: cover !important;
-	object-position: center top !important;
+div.image-embed[alt="banner-top-250"] .image-wrapper img:not([width]) {
+	width: 100vw;
+	height: 250px;
+	object-fit: cover;
+	object-position: center top;
 }
 
 /** force standard mac screen aspect ratio */
@@ -971,7 +970,7 @@ body.mia-mono-links {
 
 .math-left {
 	.math-block {
-		text-align: left !important;
+		text-align: left;
 		padding-left: 3ch;
 		padding-right: 3ch;
 	}
