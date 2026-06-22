@@ -131,7 +131,7 @@ settings:
 
 	--background-primary: #1a1a1a;
 	--background-secondary: #262626;
-	--background-secondary-alt: #000000;
+	--background-secondary-alt: #262626;
 	--code-background: #282828;
 
 	/* alternative */
@@ -689,95 +689,69 @@ body {
 /* Subtle links treatment to keep visual noise down */
 
 /* internal links have normal text and faint underline */
-/* internal unresolved links have muted text and faint dotted underline */
-/* external links have accent text and faint accent underline */
+/* internal unresolved links have muted text and muted dotted underline */
+/* external links have accent text and accent underline */
 /* hover brightens/darkens all links, and the underline remains the same */
 
-/* There is inadequate support for styling this in the default theme. */
-/* Variables should control everything. They don't. */
-/* There are conflicting levels of application of underlines. */
-
 body {
-	--mia-link-decoration-thickness: auto;
-	--mia-link-decoration-offset: 2px;
-
 	--link-color: var(--text-normal);
 	--link-color-hover: var(--text-muted);
 	--link-decoration: underline;
-	--mia-internal-decoration-color: var(--text-faint);
+	--mia-link-decoration-color: var(--text-faint);
 
 	--link-unresolved-color: var(--text-muted);
+	--mia-link-unresolved-color-hover: var(--text-normal);
 	--link-unresolved-opacity: 1;
-	--link-unresolved-filter: none;
-
-	--link-external-decoration: underline;
-	--link-external-decoration-hover: underline;
-	--link-external-filter: none;
+	--mia-link-unresolved-decoration-color: var(--text-muted);
+	--mia-link-unresolved-decoration-style: dotted;
 
 	--link-external-color: var(--accent-color);
 	--link-external-color-hover: var(--accent-color-light);
-	--link-external-decoration-hover: hsla(var(--interactive-accent-hsl), 0.67);
-}
-.theme-light {
-	--mia-link-decoration-thickness: auto;
-	--mia-link-decoration-offset: 2px;
-}
-.theme-dark {
-	--mia-link-decoration-thickness: 1px;
-	--mia-link-decoration-offset: 2px;
-}
+	--link-external-decoration: underline;
+	--mia-link-external-decoration-color: hsla(
+		var(--interactive-accent-hsl),
+		0.67
+	);
 
+	--link-decoration-thickness: auto;
+	--mia-link-decoration-offset: 2px;
+}
 /* muted external links */
 body.mia-mono-links {
 	--link-external-color: var(--text-normal);
 	--link-external-color-hover: var(--accent-color);
-	--link-external-decoration-color: var(--text-normal);
-	--link-external-decoration-hover: var(--accent-color);
+	--mia-link-external-decoration-color: var(--text-normal);
+}
+
+/* one offset and thickness to rule them all */
+.markdown-source-view.mod-cm6 .cm-underline,
+.cm-s-obsidian span.cm-url,
+.metadata-property-value :is(.internal-link, .external-link),
+.markdown-rendered a:is(.internal-link, .external-link) {
+	text-underline-offset: var(--mia-link-decoration-offset);
+	text-decoration-thickness: var(--link-decoration-thickness);
 }
 
 /* internal link */
-.markdown-source-view .cm-hmd-internal-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline,
 .metadata-property-value .internal-link,
-.bases-table-cell .internal-link,
-.markdown-rendered a.internal-link {
-	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline;
-	text-decoration-thickness: var(--mia-link-decoration-thickness);
-	text-decoration-color: var(--mia-internal-decoration-color);
+.markdown-rendered .internal-link {
+	text-decoration-color: var(--mia-link-decoration-color);
 }
 
-.markdown-source-view .cm-hmd-internal-link:hover,
-.metadata-property-value .internal-link:hover,
-.bases-table-cell .internal-link:hover,
-.markdown-rendered a.internal-link:hover {
-	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration-thickness: var(--mia-link-decoration-thickness);
-	text-decoration-color: var(--mia-internal-decoration-color);
-}
-
-/* unresolved internal link */
-.markdown-source-view .cm-hmd-internal-link .is-unresolved .cm-underline,
+/* unresolved link */
+.markdown-source-view.mod-cm6 .is-unresolved .cm-underline,
 .metadata-property-value .internal-link.is-unresolved,
-.markdown-rendered a.internal-link.is-unresolved {
-	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline;
-	text-decoration-style: dotted;
-	text-decoration-thickness: var(--mia-link-decoration-thickness);
-	text-decoration-color: var(--mia-internal-decoration-color);
+.markdown-rendered .internal-link.is-unresolved {
+	text-decoration-style: var(--mia-link-unresolved-decoration-style);
+	text-decoration-color: var(--mia-link-unresolved-decoration-color);
 }
-
-/* ... what a mess */
-@media (hover: hover) {
-	.cm-s-obsidian span.cm-hmd-internal-link:hover {
-		text-decoration-line: none;
-	}
-}
-
-.markdown-source-view .cm-hmd-internal-link:hover .is-unresolved .cm-underline,
+/* unresolved hover */
+.markdown-source-view.mod-cm6 .is-unresolved .cm-underline:hover,
 .metadata-property-value .internal-link.is-unresolved:hover,
-.markdown-rendered a.internal-link.is-unresolved:hover {
-	color: var(--text-normal);
-	text-decoration-color: var(--text-faint);
+.markdown-rendered .internal-link.is-unresolved:hover {
+	color: var(--mia-link-unresolved-color-hover);
+	text-decoration-color: var(--mia-link-unresolved-decoration-color);
 }
 
 /* external link */
@@ -785,26 +759,22 @@ body.mia-mono-links {
 .markdown-source-view .cm-url .cm-underline,
 .metadata-property-value .external-link,
 .markdown-rendered a.external-link {
-	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline;
-	text-decoration-thickness: var(--mia-link-decoration-thickness);
-	text-decoration-color: var(--link-external-decoration-color);
+	text-decoration-color: var(--mia-link-external-decoration-color);
 }
 
-.markdown-source-view .cm-url {
-	text-decoration-line: underline !important;
-	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
-	text-underline-offset: var(--mia-link-decoration-offset);
+/* hovering produces an extra underline with wrong offset - turn it off */
+@media (hover: hover) {
+	.cm-s-obsidian span.cm-hmd-internal-link:hover,
+    .cm-s-obsidian span.cm-formatting-link.cm-url:hover,
+    .cm-s-obsidian span.cm-url:hover,
+    .cm-s-obsidian span.cm-link:hover,
+    .cm-s-obsidian span.cm-url /* and this too */ {
+		text-decoration: none;
+	}
 }
-
-.markdown-source-view .cm-link:hover .cm-underline,
-.markdown-source-view .cm-url:hover .cm-underline,
-.metadata-property-value .external-link:hover,
-.markdown-rendered a.external-link:hover {
-	text-underline-offset: var(--mia-link-decoration-offset);
-	text-decoration: underline !important;
-	text-decoration-thickness: var(--mia-link-decoration-thickness) !important;
-	text-decoration-color: var(--link-external-decoration-hover) !important;
+/* Restore the underline for source view */
+.markdown-source-view:not(.is-live-preview) span.cm-url {
+	text-decoration: var(--link-decoration);
 }
 
 /* no icon on external link */
@@ -815,57 +785,53 @@ body.mia-mono-links {
 
 /* UP-RIGHT-ARROW */
 .mia-icon-upright .external-link {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E");
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23909090' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E");
 	padding-right: 15px;
 }
 
 /* EXTERNAL-LINK */
 .mia-icon-extlink .external-link {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14L21 3'/%3E%3C/svg%3E");
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23909090' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14L21 3'/%3E%3C/svg%3E");
 	background-size: 14px;
 	padding-right: 17px;
 }
 
 /* Adjust link colours when highlighted */
-.markdown-source-view
-	span.cm-highlight:is(
-		.cm-link,
-		.cm-link .is-unresolved,
-		.cm-url,
-		.cm-hmd-internal-link
-	)
-	.cm-underline,
-.markdown-rendered
-	mark
-	a:is(.internal-link, .external-link, .internal-link.is-unresolved) {
-	color: var(--text-normal);
-	text-decoration-color: var(--text-normal) !important;
+span.cm-highlight,
+.markdown-rendered mark {
+	--link-color: var(--text-normal);
+	--link-unresolved-color: var(--text-normal);
+	--link-external-color: var(--text-normal);
 }
-
-.markdown-source-view
-	span.cm-highlight:is(
-		.cm-link,
-		.cm-link .is-unresolved,
-		.cm-url,
-		.cm-hmd-internal-link
-	)
-	.cm-underline:hover,
-.markdown-rendered
-	mark
-	a:is(.internal-link, .external-link, .internal-link.is-unresolved):hover {
-	color: var(--accent-color);
+.theme-light span.cm-highlight,
+.theme-light .markdown-rendered mark {
+	--link-color-hover: var(--text-muted);
+	--mia-link-unresolved-color-hover: var(--text-muted);
+	--link-external-color-hover: var(--accent-color);
+}
+.theme-dark span.cm-highlight,
+.theme-dark .markdown-rendered mark {
+	--link-color-hover: var(--background-secondary);
+	--mia-link-unresolved-color-hover: var(--background-secondary);
+	--link-external-color-hover: var(--accent-color);
+	--mia-link-decoration-color: var(--text-muted);
+	--mia-link-unresolved-decoration-color: var(--text-normal);
+	--mia-link-external-decoration-color: var(--text-normal);
 }
 
 /* Adjust spelling underline for consistency */
 .cm-content ::spelling-error {
-	text-decoration: underline dotted crimson;
-	text-underline-offset: 2.1px;
+	text-decoration-color: crimson;
+	text-underline-offset: calc(var(--mia-link-decoration-offset) + 0.5px);
 	text-decoration-thickness: auto;
 }
 
 /* Tone-down the bare urls relative to the actual content */
-.cm-s-obsidian span.cm-string.cm-url {
+.cm-s-obsidian span.cm-string.cm-url:not(.cm-highlight) {
 	color: var(--text-faint);
+}
+.cm-s-obsidian span.cm-string.cm-url:hover {
+	color: var(--text-normal);
 }
 .cm-s-obsidian div.cm-active span.cm-string.cm-url {
 	color: var(--text-normal);
