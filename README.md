@@ -30,7 +30,7 @@ Install the [Style Settings](https://community.obsidian.md/plugins/obsidian-styl
 
 ## Source view
 
-<p align="center"><img src="mia-source-example.webp" /></p>
+<p align="center"><img src="img/mia-source-example.webp" /></p>
 
 The source editing view is designed for working with plain text, similar to markdown editors like *iA Writer*. The monospace font "SF Mono" is used.
 
@@ -40,7 +40,7 @@ You may use any other font in source view by setting the *Monospace font* in Obs
 
 ## Reader view
 
-<p align="center"><img src="mia-reader-example.webp" /></p>
+<p align="center"><img src="img/mia-reader-example.webp" /></p>
 
 The regular reading view uses the system font.
 
