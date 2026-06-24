@@ -559,7 +559,8 @@ body {
 
 /** Typography: source writing  */
 .markdown-source-view:not(.is-live-preview) .cm-scroller {
-	--font-text-theme: "SF Mono", ui-monospace, monospace;
+	--font-text-theme:
+		var(--font-monospace-override), "SF Mono", ui-monospace, monospace;
 	font-family: var(--font-text-theme);
 
 	--font-monospace-theme: "SF Mono", ui-monospace, monospace;
@@ -840,7 +841,7 @@ span.cm-highlight,
 /*** IMAGE ALT CLASSES ***/
 
 /** show top 250 px */
-div.image-embed[alt="banner-top-250"] .image-wrapper img:not([width]) {
+div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 	width: 100vw;
 	height: 250px;
 	object-fit: cover;
@@ -849,7 +850,7 @@ div.image-embed[alt="banner-top-250"] .image-wrapper img:not([width]) {
 
 /** force standard mac screen aspect ratio */
 .image-embed
-	img:is([alt="wallpaper"], [alt="wp"], [alt="16:10"], [alt="screen"]) {
+	img:is([alt^="wallpaper"], [alt^="wp"], [alt^="16:10"], [alt^="screen"]) {
 	aspect-ratio: 16 / 10;
 	width: 100vw;
 	object-fit: cover;
@@ -870,6 +871,7 @@ div.image-embed[alt="banner-top-250"] .image-wrapper img:not([width]) {
 	z-index: 1;
 	float: right;
 	margin-left: 1em;
+	margin-top: 1em;
 	margin-bottom: 1em;
 }
 
@@ -879,7 +881,17 @@ div.image-embed[alt="banner-top-250"] .image-wrapper img:not([width]) {
 	z-index: 1;
 	float: left;
 	margin-right: 1em;
+	margin-top: 1em;
 	margin-bottom: 1em;
+}
+
+/** float image left, content wraps around */
+.image-embed:has(img[alt^="drop-cap"]) {
+	position: relative;
+	z-index: 1;
+	float: left;
+	margin-right: 2px;
+	margin-bottom: 2px;
 }
 
 /*** CSS CLASSES ***/
