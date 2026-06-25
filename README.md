@@ -99,4 +99,4 @@ In dark mode, the drop cap is inverted:
 
 - Image inversion is from contributions by **den** and **BambusControl** in this [forum post](https://forum.obsidian.md/t/auto-adaptive-images-for-dark-light-theme/13494/16). 
 - Some code editor colours from [Flexoki — Steph Ango](https://stephango.com/flexoki).
-- 
+- Photo used in preview image is by [Isabella Fischer](https://unsplash.com/@izzyfisch_?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/close-up-photo-of-black-framed-eyeglasses-LXDFEdtEGUQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
