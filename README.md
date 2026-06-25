@@ -1,6 +1,6 @@
 Mia is a lightweight Obsidian theme for macOS and iOS that builds on the default theme, with an emphasis on a clean, distraction-free experience.
 
-<p align="center"><img src="preview.png" /></p>
+![](preview.png)
 
 ## Features
 
@@ -30,7 +30,7 @@ Install the [Style Settings](https://community.obsidian.md/plugins/obsidian-styl
 
 ## Source view
 
-<p align="center"><img src="img/mia-source-example.webp" /></p>
+![](img/mia-source-example.webp)
 
 The source editing view is designed for working with plain text, similar to markdown editors like *iA Writer*. The monospace font "SF Mono" is used.
 
@@ -40,7 +40,7 @@ You may use any other font in source view by setting the *Monospace font* in Obs
 
 ## Reader view
 
-<p align="center"><img src="img/mia-reader-example.webp" /></p>
+![](img/mia-reader-example.webp)
 
 The regular reading view uses the system font.
 
@@ -75,18 +75,28 @@ There was nothing so _very_ remarkable in that; nor did Alice think it so _very_
 
 Output:  
 
-<p align="center"><img src="img/mia-float-right-example.webp" /></p>
+![](img/mia-float-right-example.webp)
+
+---
 
 ### Example 2
 
 Here is the source view of an example with a `drop-cap` and `invert-dark`:
 
-<p align="center"><img src="img/mia-dropcap-source.webp" /></p>
+![](img/mia-dropcap-source.webp)
 
 In light mode (and reading view), the `invert-dark` has no effect:
 
-<p align="center"><img src="img/mia-dropcap-light.webp" /></p>
+![](img/mia-dropcap-light.webp)
 
 In dark mode, the drop cap is inverted:
 
-<p align="center"><img src="img/mia-dropcap-dark.webp" /></p>
+![](img/mia-dropcap-dark.webp)
+
+---
+
+## Credits
+
+- Image inversion is from contributions by **den** and **BambusControl** in this [forum post](https://forum.obsidian.md/t/auto-adaptive-images-for-dark-light-theme/13494/16). 
+- Some code editor colours from [Flexoki — Steph Ango](https://stephango.com/flexoki).
+- 
