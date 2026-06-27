@@ -44,15 +44,11 @@ settings:
             - none
             - line-through
     -
-        id: mia-line-width
-        title: Readable line width
-        description: "Settings → Editor → 'Readable line length' must also be enabled (px)"
-        type: variable-number-slider
-        default: 800
-        min: 500
-        max: 1000
-        step: 1
-        format: px
+        id: mia-table-header-background
+        title: Table header background
+        description: Table headers are shaded
+        default: true
+        type: class-toggle
     -
         id: mia-hang-headings
         title: Hang heading characters in margin (source mode)
@@ -73,7 +69,22 @@ settings:
         min: 0.5
         max: 1
         step: 0.01
-
+    -
+        id: always-reader
+        title: Always use "reader" styling in reading view
+        description: Disable on indivudual classes by adding `no-reader` to cssclasses property
+        default: false
+        type: class-toggle
+    -
+        id: mia-line-width
+        title: Readable line width
+        description: "Settings → Editor → 'Readable line length' must also be enabled (px)"
+        type: variable-number-slider
+        default: 800
+        min: 500
+        max: 1000
+        step: 1
+        format: px
 */
 
 /*** COLOURS ***/
@@ -299,6 +310,12 @@ del,
 	color: var(--text-muted);
 }
 
+/** table */
+.mia-table-header-background {
+	--table-header-background: var(--code-background);
+	--table-header-background-hover: var(--code-background);
+}
+
 /*** UI ELEMENTS ***/
 
 /** tab close and pin */
@@ -332,19 +349,42 @@ del,
 /*** IMAGES ***/
 
 /** Center images */
-.markdown-source-view .internal-embed.media-embed:has(img) {
+.markdown-source-view
+	div.image-embed:has(
+		img:not(
+			[alt*="float-right"],
+			[alt*="float-left"],
+			[alt*="drop-cap"],
+			[alt*="inline"]
+		)
+	) {
 	width: auto;
 	justify-content: center;
 	vertical-align: top;
 	text-align: center;
 }
-span.internal-embed.media-embed:has(> img) {
+
+.markdown-rendered
+	span.internal-embed.media-embed:has(
+		> img:not(
+				[alt*="float-right"],
+				[alt*="float-left"],
+				[alt*="drop-cap"],
+				[alt*="inline"]
+			)
+	),
+.markdown-rendered
+	div.el-p
+	> p:has(
+		> img:not(
+				[alt*="float-right"],
+				[alt*="float-left"],
+				[alt*="drop-cap"],
+				[alt*="inline"]
+			)
+	) {
 	display: block;
 	text-align: center;
-
-	+ br {
-		display: none;
-	}
 }
 
 /** images have rounded corners */
@@ -723,6 +763,10 @@ body.mia-mono-links {
 	--link-external-color-hover: var(--accent-color);
 	--mia-link-external-decoration-color: var(--text-normal);
 }
+/* monochrome external link with icon doesn't need differentiated decoration*/
+body.mia-mono-links:is(.mia-icon-extlink, .mia-icon-upright) {
+	--mia-link-external-decoration-color: var(--mia-link-decoration-color);
+}
 
 /* one offset and thickness to rule them all */
 .markdown-source-view.mod-cm6 .cm-underline,
@@ -836,6 +880,7 @@ span.cm-highlight,
 }
 .cm-s-obsidian div.cm-active span.cm-string.cm-url {
 	color: var(--text-normal);
+	text-decoration: none;
 }
 
 /*** IMAGE ALT CLASSES ***/
@@ -866,32 +911,50 @@ div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 }
 
 /** float image right, content wraps around */
-.image-embed:has(img[alt^="float-right"]) {
+div.el-p > p > img[alt*="float-right"],
+.image-embed:has(img[alt*="float-right"]) {
 	position: relative;
 	z-index: 1;
 	float: right;
-	margin-left: 1em;
-	margin-top: 1em;
+	padding-left: 1em;
+	padding-top: 4px;
 	margin-bottom: 1em;
+
+	/* eliminate linebreak added after image in reading view */
+	+ br {
+		display: none;
+	}
 }
 
 /** float image left, content wraps around */
-.image-embed:has(img[alt^="float-left"]) {
+div.el-p > p > img[alt*="float-left"],
+.image-embed:has(img[alt*="float-left"]) {
 	position: relative;
 	z-index: 1;
 	float: left;
-	margin-right: 1em;
-	margin-top: 1em;
+	padding-right: 1em;
+	padding-top: 4px;
 	margin-bottom: 1em;
+
+	/* eliminate linebreak added after image in reading view */
+	+ br {
+		display: none;
+	}
 }
 
 /** float image left, content wraps around */
-.image-embed:has(img[alt^="drop-cap"]) {
+div.el-p > p > img[alt*="drop-cap"],
+.image-embed:has(img[alt*="drop-cap"]) {
 	position: relative;
 	z-index: 1;
 	float: left;
-	margin-right: 2px;
+	padding-right: 2px;
 	margin-bottom: 2px;
+
+	/* eliminate linebreak added after image in reading view */
+	+ br {
+		display: none;
+	}
 }
 
 /*** CSS CLASSES ***/
@@ -899,6 +962,7 @@ div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 /*** READING with cssclass: reader ***/
 
 /** reading view uses different font and weights */
+body.always-reader .markdown-reading-view :not(.no-reader),
 .markdown-reading-view .reader {
 	--font-text: "Iowan Old Style", "New York", "Palatino", "Georgia", serif;
 	--font-text-size: 15pt;

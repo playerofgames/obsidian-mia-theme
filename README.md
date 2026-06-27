@@ -6,19 +6,24 @@ Mia is a lightweight Obsidian theme for macOS and iOS that builds on the default
 
 - Light mode and Dark mode support
 - System fonts with spacing, headings, link styling designed for usability and readability
+- Monochrome external links option
+- Alternative choice for external link icon, or don't show any icon
 - A true **source view** for working with markdown:
 	- monospace font ("SF Mono")
-	- headings hang in margin
+	- heading characters "#" hang in margin
 	- formatting noise (e.g., url in a link) is muted
-- Images are centered by default
+- Single images are centered by default
 - Image alt tags, including:
 	- Images `float-left` and `float-right` 
 	- Images `invert-dark` and `invert-light` depending on the theme
+	- Use `inline` to prevent an image from being centered by default
 - Images are slightly dimmed in dark mode (configurable)
 - Checkbox style for cancelled tasks `[-]`
 - CSS class `reader` for reading in serif (similar to Safari reader)
 - PDF export at 12pt with black text
 - Style Settings support for some of the more opinionated choices
+
+Install Mia from the [Obsidian Thene Gallery](https://community.obsidian.md/themes/mia) page.
 
 ---
 
@@ -50,6 +55,8 @@ Use `reader` in a `cssclasses` property to use a serif font ("Iowan Old Style") 
 cssclasses: reader
 ```
 
+You can configure Mia to always use reader view, in Style Settings. (Use `no-reader` in `cssclasses` to selectively disable this.)
+
 ---
 
 ## Image alt classes
@@ -59,6 +66,7 @@ cssclasses: reader
 | float-left            | image is left-aligned, and content wraps around it                     |
 | float-right           | image is right-aligned, and content wraps around it<br>                |
 | drop-cap              | image is left-aligned with nominal margin, and content wraps around it |
+| inline                | prevent image from being centered by default                           |
 | banner-top-250        | image is restricted to 250px tall, cropped to the top of the image     |
 | screen, wp, wallpaper | image aspect ratio is constrained to 16 / 10                           |
 | invert-dark           | image will be inverted when using the dark theme\*                     |
