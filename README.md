@@ -43,6 +43,8 @@ This font is available on iOS devices, but needs to be installed on macOS or oth
 
 You may use any other font in source view by setting the *Monospace font* in Obsidian Appearance settings.
 
+---
+
 ## Reader view
 
 ![](img/mia-reader-example.webp)
