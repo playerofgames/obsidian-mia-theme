@@ -23,7 +23,7 @@ Mia is a lightweight Obsidian theme for macOS and iOS that builds on the default
 - PDF export at 12pt with black text
 - Style Settings support for some of the more opinionated choices
 
-Install Mia from the [Obsidian Thene Gallery](https://community.obsidian.md/themes/mia) page.
+Install Mia from the [Obsidian Theme Gallery](https://community.obsidian.md/themes/mia) page.
 
 ---
 
@@ -110,3 +110,4 @@ In dark mode, the drop cap is inverted:
 - Image inversion is from contributions by **den** and **BambusControl** in this [forum post](https://forum.obsidian.md/t/auto-adaptive-images-for-dark-light-theme/13494/16). 
 - Some code editor colours from [Flexoki — Steph Ango](https://stephango.com/flexoki).
 - Photo used in preview image is by [Isabella Fischer](https://unsplash.com/@izzyfisch_?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/close-up-photo-of-black-framed-eyeglasses-LXDFEdtEGUQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
+- Extract from [Alice's Adventures in Wonderland by Lewis Carroll – Project Gutenberg](https://www.gutenberg.org/ebooks/28885).
