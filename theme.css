@@ -966,6 +966,7 @@ body.always-reader .markdown-reading-view :not(.no-reader),
 .markdown-reading-view .reader {
 	--font-text: "Iowan Old Style", "New York", "Palatino", "Georgia", serif;
 	--font-text-size: 15pt;
+	--table-text-size: var(--font-text-size);
 	--line-height-normal: 1.55;
 
 	--inline-title-color: var(--text-normal);
