@@ -716,12 +716,12 @@ body {
 		--file-margins: var(--size-4-2) var(--size-4-4);
 		--line-height-normal: 1.4;
 
-		--h1-size: calc(var(--font-text-size) * 6 / 5);
-		--h2-size: calc(var(--font-text-size) * 8 / 8);
-		--h3-size: calc(var(--font-text-size) * 8 / 8);
-		--h4-size: calc(var(--font-text-size) * 8 / 8);
-		--h5-size: calc(var(--font-text-size) * 8 / 8);
-		--h6-size: calc(var(--font-text-size) * 8 / 8);
+		--h1-size: calc(var(--font-text-size) * 1.2);
+		--h2-size: calc(var(--font-text-size) * 1.1);
+		--h3-size: calc(var(--font-text-size) * 1);
+		--h4-size: calc(var(--font-text-size) * 1);
+		--h5-size: calc(var(--font-text-size) * 1);
+		--h6-size: calc(var(--font-text-size) * 1);
 	}
 }
 
@@ -863,6 +863,12 @@ span.cm-highlight,
 	--mia-link-unresolved-decoration-color: var(--text-normal);
 	--mia-link-external-decoration-color: var(--text-normal);
 }
+body:is(.mia-icon-extlink, .mia-icon-upright).theme-dark span.cm-highlight,
+body:is(.mia-icon-extlink, .mia-icon-upright).theme-dark
+	.markdown-rendered
+	mark {
+	--mia-link-external-decoration-color: var(--mia-link-decoration-color);
+}
 
 /* Adjust spelling underline for consistency */
 .cm-content ::spelling-error {
@@ -964,7 +970,8 @@ div.el-p > p > img[alt*="drop-cap"],
 /** reading view uses different font and weights */
 body.always-reader .markdown-reading-view :not(.no-reader),
 .markdown-reading-view .reader {
-	--font-text: "Iowan Old Style", "New York", "Palatino", "Georgia", serif;
+	--font-text:
+		"Iowan Old Style", "Charter", "New York", "Palatino", "Georgia", serif;
 	--font-text-size: 15pt;
 	--table-text-size: var(--font-text-size);
 	--line-height-normal: 1.55;
@@ -984,30 +991,26 @@ body.always-reader .markdown-reading-view :not(.no-reader),
 	--h5-size: calc(var(--font-text-size) * 9 / 8);
 	--h6-size: calc(var(--font-text-size) * 9 / 8);
 
-	--file-line-width: 775px;
-
 	--inline-title-size: var(--h1-size);
 
-	.inline-title {
-		letter-spacing: 0px;
+	.inline-title,
+	h1,
+	h2,
+	h3 {
+		font-weight: var(--bold-weight);
+		letter-spacing: -0.015em;
 	}
+
+	--file-line-width: 775px;
 
 	.metadata-container {
 		--metadata-label-font-size: 11.5pt;
 		--metadata-input-font-size: 11.5pt;
 	}
-}
 
-.markdown-reading-view .reader p {
-	margin: 0.9em 0;
-}
-
-.markdown-reading-view .reader .inline-title,
-.markdown-reading-view .reader h1,
-.markdown-reading-view .reader h2,
-.markdown-reading-view .reader h3 {
-	font-weight: var(--bold-weight);
-	letter-spacing: -0.015em;
+	p {
+		margin: 0.9em 0;
+	}
 }
 
 /*** LEFT-ALIGNED math with cssclass: .math-left ***/
