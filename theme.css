@@ -352,9 +352,10 @@ del,
 
 /*** IMAGES ***/
 
-/** Center images */
+/** Center single images */
 .markdown-source-view
-	div.image-embed:has(
+	:is( .cm-content > div.image-embed, /* naked image */
+	     .cm-line > div.image-embed:only-of-type):has(
 		img:not(
 			[alt*="float-right"],
 			[alt*="float-left"],
@@ -362,14 +363,14 @@ del,
 			[alt*="inline"]
 		)
 	) {
-	width: auto;
+	width: 100%;
 	justify-content: center;
 	vertical-align: top;
 	text-align: center;
 }
 
 .markdown-rendered
-	span.internal-embed.media-embed:has(
+	span.internal-embed.media-embed:only-of-type:has(
 		> img:not(
 				[alt*="float-right"],
 				[alt*="float-left"],
@@ -380,7 +381,7 @@ del,
 .markdown-rendered
 	div.el-p
 	> p:has(
-		> img:not(
+		> img:only-of-type:not(
 				[alt*="float-right"],
 				[alt*="float-left"],
 				[alt*="drop-cap"],
