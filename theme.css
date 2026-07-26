@@ -50,6 +50,12 @@ settings:
         default: true
         type: class-toggle
     -
+        id: mia-style-bases-tables
+        title: Bases table view styling
+        description: Render embedded Bases tables like regular tables
+        default: true
+        type: class-toggle
+    -
         id: mia-hang-headings
         title: Hang heading characters in margin (source mode)
         description: "Heading characters ### hang in the margin (requires 'Readable line length')"
@@ -111,7 +117,6 @@ settings:
 	--text-highlight-bg-rgb: 255, 208, 0;
 	--text-highlight-bg: #ffd00066;
 
-	--background-modifier-border: #d9d9d9;
 	--table-border-color: var(--text-faint);
 
 	--hr-color: oklch(0 0 0 / 25%);
@@ -190,7 +195,6 @@ body {
 	--checklist-done-decoration: none;
 	--checklist-done-color: var(--text-muted);
 
-	--search-result-background: var(--background-secondary);
 	--callout-title-weight: var(--font-weight);
 
 	--text-accent: var(--accent-color);
@@ -199,6 +203,12 @@ body {
 	--blockquote-font-style: italic;
 	--blockquote-border-color: var(--text-faint);
 	--blockquote-border-thickness: 0px;
+
+	/* fix emphasis in italic blockquotes */
+	.cm-quote.cm-em,
+	blockquote em {
+		font-style: normal;
+	}
 
 	--list-marker-color: var(--text-normal);
 	--list-marker-color-hover: var(--text-normal);
@@ -214,6 +224,8 @@ body {
 
 	--hr-thickness: 1px;
 
+	--background-modifier-border: var(--text-faint);
+	--bases-embed-border-colour: var(--table-border-colour);
 	--embed-border-start: 1pt solid var(--text-faint);
 
 	/** slightly wider readable line width */
@@ -275,13 +287,14 @@ div.mod-header
 	margin-left: 0ch;
 	border-left-style: var(--mia-blockquote-reading-style, solid);
 }
-div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview div.HyperMD-quote.HyperMD-quote-1.cm-line {
+div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview
+	div.HyperMD-quote.HyperMD-quote-1.cm-line {
 	margin-left: calc(var(--list-indent) - 1.35rem) !important;
 }
-div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview div.HyperMD-quote.HyperMD-quote-1.cm-line::before {
+div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview
+	div.HyperMD-quote.HyperMD-quote-1.cm-line::before {
 	margin-left: calc(-1.1rem);
 }
-
 
 /** preformatted: shade entire line, and hide indentation width */
 .cm-line:has(> .cm-hmd-indented-code.cm-inline-code) {
@@ -304,8 +317,16 @@ a.tag:hover,
 /** highlighting */
 .cm-highlight,
 mark {
-	padding: 1px 3px;
+	padding: 1px 2px;
 	border-radius: 3px;
+}
+/* slightly undo extra spacing when there are style changes */
+.cm-highlight
+	+ img.cm-widgetBuffer
+	+ span[contenteditable="false"]
+	+ img.cm-widgetBuffer
+	+ .cm-highlight {
+	padding-left: 0px;
 }
 
 /** strikethrough */
@@ -318,6 +339,15 @@ del,
 .mia-table-header-background {
 	--table-header-background: var(--code-background);
 	--table-header-background-hover: var(--code-background);
+}
+.mia-style-bases-tables .bases-embed .bases-view[data-view-type="table"] {
+	.bases-thead {
+		background-color: var(--table-header-background);
+	}
+	.bases-table-header-name {
+		font-weight: var(--table-header-weight);
+		color: var(--table-header-color);
+	}
 }
 
 /*** UI ELEMENTS ***/
@@ -906,18 +936,34 @@ div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 
 /** force standard mac screen aspect ratio */
 .image-embed
-	img:is([alt^="wallpaper"], [alt^="wp"], [alt^="16:10"], [alt^="screen"]) {
+	img:is([alt*="screen"], [alt^="16:10"]]) {
 	aspect-ratio: 16 / 10;
 	width: 100vw;
 	object-fit: cover;
 }
 
+/** restrict image to square shape */
+.image-embed img:is([alt*="square"], [alt*="1:1"]) {
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+/** black and white image */
+.image-embed img:is([alt*="bw"], [alt*="grayscale"], [alt*="monochrome"]) {
+	filter: grayscale();
+}
+
+/** sepia image */
+.image-embed img:is([alt*="sepia"]) {
+	filter: grayscale() sepia(0.4) brightness(0.9);
+}
+
 /** invert image when appropriate */
-.theme-dark img[alt$="invert-dark"] {
+.theme-dark img[alt*="invert-dark"] {
 	filter: invert(1) hue-rotate(180deg);
 }
 
-.theme-light img[alt$="invert-light"] {
+.theme-light img[alt*="invert-light"] {
 	filter: invert(1) hue-rotate(180deg);
 }
 
