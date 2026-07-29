@@ -63,6 +63,18 @@ settings:
         max: 1
         step: 0.01
     -
+        id: mia-font-source-override
+        title: "Font for 'Source mode' view"
+        description: "Override the font used in 'Source mode' (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
+        id: mia-font-source-monospace-override
+        title: "Font for monospace content (code, preformatted) in 'Source mode' view"
+        description: "Override the font used in 'Source mode' monospace content (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
         id: always-reader
         title: "In 'Reading view', always use 'reader' style (serif fonts)"
         description: "Wnen enabled, to restore the default reading view for a note, add `no-reader` to its cssclasses property"
@@ -554,7 +566,7 @@ mjx-container {
 	font-style: normal;
 }
 
-/** Typography: SF Pro or system-ui */
+/** Typography: SF Pro or system-ui, SF Mono for monospace */
 body {
 	--font-text-theme: "SF Pro", system-ui;
 	--font-editor-override: var(--font-text-theme);
@@ -647,10 +659,11 @@ body {
 /** Typography: source writing  */
 .markdown-source-view:not(.is-live-preview) .cm-scroller {
 	--font-text-theme:
-		var(--font-monospace-override), "SF Mono", ui-monospace, monospace;
+		var(--mia-font-source-override, "?"), "SFMono-Regular", "SF Mono", ui-monospace, monospace;
 	font-family: var(--font-text-theme);
 
-	--font-monospace-theme: "SF Mono", ui-monospace, monospace;
+	--font-monospace-theme: var(--mia-font-source-monospace-override, "?"), SFMono-Regular, "SF Mono", ui-monospace, monospace;
+	--font-monospace: var(--font-monospace-theme);
 	--code-size: 100%;
 
 	--font-weight: var(--font-normal);
