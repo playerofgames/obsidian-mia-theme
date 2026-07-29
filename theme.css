@@ -4,13 +4,14 @@ id: mia-theme
 settings:
     -
         id: mia-mono-links
-        title: Monochrome links
-        description: When disabled, external links use the accent color
+        title: "Monochrome links"
+        description: "When enabled, external links and underlines use the text color instead of  the accent color"
         type: class-toggle
+        default: false
     -
         id: mia-link-icon
-        title: External link icon
-        description: Icon shown after external links
+        title: "External link icon"
+        description: "Icon shown after external links (recommend setting when monochrome links are enabled)"
         type: class-select
         allowEmpty: false
         default: mia-icon-none
@@ -25,9 +26,19 @@ settings:
                 label: Arrow Up Right
                 value: mia-icon-upright
     -
+        id: mia-line-width
+        title: "Adjust Readable line width"
+        description: "Settings → Editor → 'Readable line length' must be enabled foa any effect; (px)"
+        type: variable-number-slider
+        default: 800
+        min: 500
+        max: 1000
+        step: 1
+        format: px
+    -
         id: blockquote-border-thickness
-        title: Blockquote border thickness
-        description: Thickness of left border for blockquotes (px)
+        title: "Blockquote border thickness"
+        description: "Thickness of left border for blockquotes (px)"
         type: variable-number-slider
         default: 0
         min: 0
@@ -36,7 +47,7 @@ settings:
         format: px
     -
         id: checklist-done-decoration
-        title: Completed task decoration
+        title: "Completed task decoration"
         description: "Completed task text is muted; also apply this decoration"
         type: variable-select
         default: none
@@ -44,32 +55,8 @@ settings:
             - none
             - line-through
     -
-        id: mia-table-header-background
-        title: Table header background
-        description: Table headers are shaded
-        default: true
-        type: class-toggle
-    -
-        id: mia-style-bases-tables
-        title: Bases table view styling
-        description: Render embedded Bases tables like regular tables
-        default: true
-        type: class-toggle
-    -
-        id: mia-hang-headings
-        title: Hang heading characters in margin (source mode)
-        description: "Heading characters ### hang in the margin (requires 'Readable line length')"
-        type: class-toggle
-        default: true
-    -
-        id: mia-inline-h1
-        title: Show inline title with heading character (source mode)
-        description: "Prefix Inline title with # and hang in the margin (requires 'Readable line length')"
-        type: class-toggle
-        default: true
-    -
         id: mia-image-muted
-        title: Opacity of images in dark mode
+        title: "Opacity of images in dark mode"
         type: variable-number-slider
         default: 0.85
         min: 0.5
@@ -77,21 +64,34 @@ settings:
         step: 0.01
     -
         id: always-reader
-        title: Always use "reader" styling in reading view
-        description: Disable on indivudual classes by adding `no-reader` to cssclasses property
+        title: "In 'Reading view', always use 'reader' style (serif fonts)"
+        description: "Wnen enabled, to restore the default reading view for a note, add `no-reader` to its cssclasses property"
         default: false
         type: class-toggle
-    -
-        id: mia-line-width
-        title: Readable line width
-        description: "Settings → Editor → 'Readable line length' must also be enabled (px)"
-        type: variable-number-slider
-        default: 800
-        min: 500
-        max: 1000
-        step: 1
-        format: px
-*/
+	-
+	    id: mia-disable-table-header-background
+	    title: "Don't shade table header row"
+	    description: "Table header row is shaded by default"
+	    default: false
+	    type: class-toggle
+	-
+	    id: mia-disable-style-bases-tables
+	    title: "Don't style Bases tables"
+	    description: "Render embedded Bases tables like regular tables by default"
+	    default: false
+	    type: class-toggle
+	-
+	    id: mia-disable-hang-headings
+	    title: "Don't hang heading characters in margin (source mode)"
+	    description: "Heading characters '###' hang in the margin (requires 'Readable line length')"
+	    type: class-toggle
+	    default: false
+	-
+	    id: mia-disable-inline-h1
+	    title: "Don't add a heading '#' to inline title (source mode)"
+	    description: "Prefix Inline title with '#' and hang in the margin"
+	    type: class-toggle
+	    default: false*/
 
 /*** COLOURS ***/
 
@@ -119,7 +119,7 @@ settings:
 	--text-highlight-bg: #ffd00066;
 
 	--table-border-color: var(--text-faint);
-	--background-modifier-border: #e0e0e0;
+	--background-modifier-border: #e4e4e4;
 
 	--hr-color: oklch(0 0 0 / 25%);
 
@@ -335,11 +335,13 @@ del,
 }
 
 /** table */
-.mia-table-header-background {
+body:not(.mia-disable-table-header-background) {
 	--table-header-background: var(--code-background);
 	--table-header-background-hover: var(--code-background);
 }
-.mia-style-bases-tables .bases-embed .bases-view[data-view-type="table"] {
+body:not(.mia-disable-style-bases-tables)
+	.bases-embed
+	.bases-view[data-view-type="table"] {
 	.bases-thead {
 		background-color: var(--table-header-background);
 	}
@@ -709,7 +711,7 @@ body {
 body {
 	--mia-hanging-heading-color: var(--text-normal);
 }
-.mia-hang-headings
+body:not(.mia-disable-hang-headings)
 	.markdown-source-view:not(.is-live-preview).is-readable-line-width
 	.cm-scroller {
 	.HyperMD-header span.cm-formatting-header {
@@ -727,7 +729,7 @@ body {
 	}
 }
 /* rendering on iPad differs from desktop */
-.mia-hang-headings.is-mobile
+body:not(.mia-disable-hang-headings).is-mobile
 	.markdown-source-view:not(.is-live-preview).is-readable-line-width
 	.cm-scroller
 	.HyperMD-header
@@ -736,22 +738,36 @@ body {
 }
 
 /** Indicate inline title as level 1 header (OPINIONATED) */
-.mia-inline-h1
-	.markdown-source-view:not(.is-live-preview).is-readable-line-width
+body:not(.mia-disable-inline-h1)
+	.markdown-source-view:not(.is-live-preview)
 	.cm-scroller {
-	.inline-title::before {
+	.inline-title:before {
 		content: "# ";
 		--gutter-space: 1.2em;
 		display: inline-block;
 		position: relative;
-		left: calc(-1 * var(--gutter-space));
+		left: -2ch;
 		width: var(--gutter-space);
 		text-align: right;
 		white-space: nowrap;
 		margin-right: calc(
 			-1 * var(--gutter-space)
 		); /* This cancels the space it would normally take */
+		color: var(--text-faint);
+	}
+	.inline-title {
+		padding-left: 2ch;
+	}
+}
+body:not(.mia-disable-inline-h1, .mia-disable-hang-headings)
+	.markdown-source-view:not(.is-live-preview).is-readable-line-width
+	.cm-scroller {
+	.inline-title:before {
+		left: calc(-1 * var(--gutter-space));
 		color: var(--mia-hanging-heading-color);
+	}
+	.inline-title {
+		padding-left: 0;
 	}
 }
 
