@@ -107,9 +107,10 @@ settings:
 	--text-faint: #a8a8a8;
 
 	--background-primary: #f7f7f7;
-	--background-secondary: #f4f4f4;
+	--background-secondary: #f0f0f0;
 	--background-secondary-alt: #ffffff;
 	--code-background: #ededed;
+	--divider-color: #c0c0c0;
 
 	--text-selection: #b6eefca6;
 	--caret-color: var(--accent-color);
@@ -118,6 +119,7 @@ settings:
 	--text-highlight-bg: #ffd00066;
 
 	--table-border-color: var(--text-faint);
+	--background-modifier-border: #e0e0e0;
 
 	--hr-color: oklch(0 0 0 / 25%);
 
@@ -141,18 +143,15 @@ settings:
 	--accent-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
 	--accent-color-light: hsl(var(--accent-h), var(--accent-s), 70%);
 
-	--text-normal: #cccccc;
+	--text-normal: #c0c0c0;
 	--text-muted: #909090;
 	--text-faint: #707070;
 
-	--background-primary: #1a1a1a;
-	--background-secondary: #262626;
+	--background-primary: #171717;
+	--background-secondary: #202020;
 	--background-secondary-alt: #262626;
 	--code-background: #282828;
-
-	/* alternative */
-	--text-normal: #c0c0c0;
-	--background-primary: #171717;
+	--divider-color: #373737;
 
 	--text-selection: #217591a6;
 	--text-highlight-bg: rgba(173, 131, 1, 0.65);
@@ -160,6 +159,7 @@ settings:
 
 	--background-modifier-active-hover: #90909060;
 	--table-border-color: var(--text-faint);
+	--background-modifier-border: #4f4f4f;
 
 	--hr-color: oklch(1 0 0 / 20%);
 
@@ -224,8 +224,7 @@ body {
 
 	--hr-thickness: 1px;
 
-	--background-modifier-border: var(--text-faint);
-	--bases-embed-border-colour: var(--table-border-colour);
+	--bases-embed-border-color: var(--table-border-color);
 	--embed-border-start: 1pt solid var(--text-faint);
 
 	/** slightly wider readable line width */
@@ -626,6 +625,17 @@ body {
 	--h6-weight: var(--font-weight);
 	--h6-line-height: var(--line-height-normal);
 	--h6-variant: all-small-caps;
+
+	/* dial-back boldness within already bold headings */
+	:is(.cm-header-1, .cm-header-2).cm-strong,
+	.markdown-preview-view :is(h1, h2) strong {
+		--bold-modifier: 100;
+	}
+
+	:is(.cm-header-3, .cm-header-4).cm-strong,
+	.markdown-preview-view :is(h3, h4) strong {
+		--bold-modifier: 200;
+	}
 }
 
 .cm-s-obsidian .cm-line.HyperMD-header {
@@ -927,7 +937,7 @@ body:is(.mia-icon-extlink, .mia-icon-upright).theme-dark
 /*** IMAGE ALT CLASSES ***/
 
 /** show top 250 px */
-div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
+div.image-embed[alt*="banner-top-250"] .image-wrapper img:not([width]) {
 	width: 100vw;
 	height: 250px;
 	object-fit: cover;
@@ -935,8 +945,7 @@ div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 }
 
 /** force standard mac screen aspect ratio */
-.image-embed
-	img:is([alt*="screen"], [alt^="16:10"]]) {
+.image-embed img:is([alt*="screen"], [alt*="16:10"]) {
 	aspect-ratio: 16 / 10;
 	width: 100vw;
 	object-fit: cover;
