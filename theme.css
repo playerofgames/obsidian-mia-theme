@@ -4,13 +4,14 @@ id: mia-theme
 settings:
     -
         id: mia-mono-links
-        title: Monochrome links
-        description: When disabled, external links use the accent color
+        title: "Monochrome links"
+        description: "When enabled, external links and underlines use the text color instead of  the accent color"
         type: class-toggle
+        default: false
     -
         id: mia-link-icon
-        title: External link icon
-        description: Icon shown after external links
+        title: "External link icon"
+        description: "Icon shown after external links (recommend setting when monochrome links are enabled)"
         type: class-select
         allowEmpty: false
         default: mia-icon-none
@@ -25,9 +26,19 @@ settings:
                 label: Arrow Up Right
                 value: mia-icon-upright
     -
+        id: mia-line-width
+        title: "Adjust Readable line width"
+        description: "Settings → Editor → 'Readable line length' must be enabled foa any effect; (px)"
+        type: variable-number-slider
+        default: 800
+        min: 500
+        max: 1000
+        step: 1
+        format: px
+    -
         id: blockquote-border-thickness
-        title: Blockquote border thickness
-        description: Thickness of left border for blockquotes (px)
+        title: "Blockquote border thickness"
+        description: "Thickness of left border for blockquotes (px)"
         type: variable-number-slider
         default: 0
         min: 0
@@ -36,7 +47,7 @@ settings:
         format: px
     -
         id: checklist-done-decoration
-        title: Completed task decoration
+        title: "Completed task decoration"
         description: "Completed task text is muted; also apply this decoration"
         type: variable-select
         default: none
@@ -44,48 +55,55 @@ settings:
             - none
             - line-through
     -
-        id: mia-table-header-background
-        title: Table header background
-        description: Table headers are shaded
-        default: true
-        type: class-toggle
-    -
-        id: mia-hang-headings
-        title: Hang heading characters in margin (source mode)
-        description: "Heading characters ### hang in the margin (requires 'Readable line length')"
-        type: class-toggle
-        default: true
-    -
-        id: mia-inline-h1
-        title: Show inline title with heading character (source mode)
-        description: "Prefix Inline title with # and hang in the margin (requires 'Readable line length')"
-        type: class-toggle
-        default: true
-    -
         id: mia-image-muted
-        title: Opacity of images in dark mode
+        title: "Opacity of images in dark mode"
         type: variable-number-slider
         default: 0.85
         min: 0.5
         max: 1
         step: 0.01
     -
+        id: mia-font-source-override
+        title: "Font for 'Source mode' view"
+        description: "Override the font used in 'Source mode' (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
+        id: mia-font-source-monospace-override
+        title: "Font for monospace content (code, preformatted) in 'Source mode' view"
+        description: "Override the font used in 'Source mode' monospace content (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
         id: always-reader
-        title: Always use "reader" styling in reading view
-        description: Disable on indivudual classes by adding `no-reader` to cssclasses property
+        title: "In 'Reading view', always use 'reader' style (serif fonts)"
+        description: "Wnen enabled, to restore the default reading view for a note, add `no-reader` to its cssclasses property"
         default: false
         type: class-toggle
-    -
-        id: mia-line-width
-        title: Readable line width
-        description: "Settings → Editor → 'Readable line length' must also be enabled (px)"
-        type: variable-number-slider
-        default: 800
-        min: 500
-        max: 1000
-        step: 1
-        format: px
-*/
+	-
+	    id: mia-disable-table-header-background
+	    title: "Don't shade table header row"
+	    description: "Table header row is shaded by default"
+	    default: false
+	    type: class-toggle
+	-
+	    id: mia-disable-style-bases-tables
+	    title: "Don't style Bases tables"
+	    description: "Render embedded Bases tables like regular tables by default"
+	    default: false
+	    type: class-toggle
+	-
+	    id: mia-disable-hang-headings
+	    title: "Don't hang heading characters in margin (source mode)"
+	    description: "Heading characters '###' hang in the margin (requires 'Readable line length')"
+	    type: class-toggle
+	    default: false
+	-
+	    id: mia-disable-inline-h1
+	    title: "Don't add a heading '#' to inline title (source mode)"
+	    description: "Prefix Inline title with '#' and hang in the margin"
+	    type: class-toggle
+	    default: false*/
 
 /*** COLOURS ***/
 
@@ -101,9 +119,10 @@ settings:
 	--text-faint: #a8a8a8;
 
 	--background-primary: #f7f7f7;
-	--background-secondary: #f4f4f4;
+	--background-secondary: #f0f0f0;
 	--background-secondary-alt: #ffffff;
 	--code-background: #ededed;
+	--divider-color: #c0c0c0;
 
 	--text-selection: #b6eefca6;
 	--caret-color: var(--accent-color);
@@ -111,8 +130,8 @@ settings:
 	--text-highlight-bg-rgb: 255, 208, 0;
 	--text-highlight-bg: #ffd00066;
 
-	--background-modifier-border: #d9d9d9;
 	--table-border-color: var(--text-faint);
+	--background-modifier-border: #e4e4e4;
 
 	--hr-color: oklch(0 0 0 / 25%);
 
@@ -136,18 +155,15 @@ settings:
 	--accent-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
 	--accent-color-light: hsl(var(--accent-h), var(--accent-s), 70%);
 
-	--text-normal: #cccccc;
+	--text-normal: #c0c0c0;
 	--text-muted: #909090;
 	--text-faint: #707070;
 
-	--background-primary: #1a1a1a;
-	--background-secondary: #262626;
+	--background-primary: #171717;
+	--background-secondary: #202020;
 	--background-secondary-alt: #262626;
 	--code-background: #282828;
-
-	/* alternative */
-	--text-normal: #c0c0c0;
-	--background-primary: #171717;
+	--divider-color: #373737;
 
 	--text-selection: #217591a6;
 	--text-highlight-bg: rgba(173, 131, 1, 0.65);
@@ -155,6 +171,7 @@ settings:
 
 	--background-modifier-active-hover: #90909060;
 	--table-border-color: var(--text-faint);
+	--background-modifier-border: #4f4f4f;
 
 	--hr-color: oklch(1 0 0 / 20%);
 
@@ -190,7 +207,6 @@ body {
 	--checklist-done-decoration: none;
 	--checklist-done-color: var(--text-muted);
 
-	--search-result-background: var(--background-secondary);
 	--callout-title-weight: var(--font-weight);
 
 	--text-accent: var(--accent-color);
@@ -199,6 +215,12 @@ body {
 	--blockquote-font-style: italic;
 	--blockquote-border-color: var(--text-faint);
 	--blockquote-border-thickness: 0px;
+
+	/* fix emphasis in italic blockquotes */
+	.cm-quote.cm-em,
+	blockquote em {
+		font-style: normal;
+	}
 
 	--list-marker-color: var(--text-normal);
 	--list-marker-color-hover: var(--text-normal);
@@ -214,6 +236,7 @@ body {
 
 	--hr-thickness: 1px;
 
+	--bases-embed-border-color: var(--table-border-color);
 	--embed-border-start: 1pt solid var(--text-faint);
 
 	/** slightly wider readable line width */
@@ -275,13 +298,14 @@ div.mod-header
 	margin-left: 0ch;
 	border-left-style: var(--mia-blockquote-reading-style, solid);
 }
-div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview div.HyperMD-quote.HyperMD-quote-1.cm-line {
+div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview
+	div.HyperMD-quote.HyperMD-quote-1.cm-line {
 	margin-left: calc(var(--list-indent) - 1.35rem) !important;
 }
-div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview div.HyperMD-quote.HyperMD-quote-1.cm-line::before {
+div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview
+	div.HyperMD-quote.HyperMD-quote-1.cm-line::before {
 	margin-left: calc(-1.1rem);
 }
-
 
 /** preformatted: shade entire line, and hide indentation width */
 .cm-line:has(> .cm-hmd-indented-code.cm-inline-code) {
@@ -304,8 +328,16 @@ a.tag:hover,
 /** highlighting */
 .cm-highlight,
 mark {
-	padding: 1px 3px;
+	padding: 1px 2px;
 	border-radius: 3px;
+}
+/* slightly undo extra spacing when there are style changes */
+.cm-highlight
+	+ img.cm-widgetBuffer
+	+ span[contenteditable="false"]
+	+ img.cm-widgetBuffer
+	+ .cm-highlight {
+	padding-left: 0px;
 }
 
 /** strikethrough */
@@ -315,9 +347,20 @@ del,
 }
 
 /** table */
-.mia-table-header-background {
+body:not(.mia-disable-table-header-background) {
 	--table-header-background: var(--code-background);
 	--table-header-background-hover: var(--code-background);
+}
+body:not(.mia-disable-style-bases-tables)
+	.bases-embed
+	.bases-view[data-view-type="table"] {
+	.bases-thead {
+		background-color: var(--table-header-background);
+	}
+	.bases-table-header-name {
+		font-weight: var(--table-header-weight);
+		color: var(--table-header-color);
+	}
 }
 
 /*** UI ELEMENTS ***/
@@ -352,9 +395,10 @@ del,
 
 /*** IMAGES ***/
 
-/** Center images */
+/** Center single images */
 .markdown-source-view
-	div.image-embed:has(
+	:is( .cm-content > div.image-embed, /* naked image */
+	     .cm-line > div.image-embed:only-of-type):has(
 		img:not(
 			[alt*="float-right"],
 			[alt*="float-left"],
@@ -362,14 +406,14 @@ del,
 			[alt*="inline"]
 		)
 	) {
-	width: auto;
+	width: 100%;
 	justify-content: center;
 	vertical-align: top;
 	text-align: center;
 }
 
 .markdown-rendered
-	span.internal-embed.media-embed:has(
+	span.internal-embed.media-embed:only-of-type:has(
 		> img:not(
 				[alt*="float-right"],
 				[alt*="float-left"],
@@ -380,7 +424,7 @@ del,
 .markdown-rendered
 	div.el-p
 	> p:has(
-		> img:not(
+		> img:only-of-type:not(
 				[alt*="float-right"],
 				[alt*="float-left"],
 				[alt*="drop-cap"],
@@ -522,7 +566,7 @@ mjx-container {
 	font-style: normal;
 }
 
-/** Typography: SF Pro or system-ui */
+/** Typography: SF Pro or system-ui, SF Mono for monospace */
 body {
 	--font-text-theme: "SF Pro", system-ui;
 	--font-editor-override: var(--font-text-theme);
@@ -595,6 +639,17 @@ body {
 	--h6-weight: var(--font-weight);
 	--h6-line-height: var(--line-height-normal);
 	--h6-variant: all-small-caps;
+
+	/* dial-back boldness within already bold headings */
+	:is(.cm-header-1, .cm-header-2).cm-strong,
+	.markdown-preview-view :is(h1, h2) strong {
+		--bold-modifier: 100;
+	}
+
+	:is(.cm-header-3, .cm-header-4).cm-strong,
+	.markdown-preview-view :is(h3, h4) strong {
+		--bold-modifier: 200;
+	}
 }
 
 .cm-s-obsidian .cm-line.HyperMD-header {
@@ -604,10 +659,11 @@ body {
 /** Typography: source writing  */
 .markdown-source-view:not(.is-live-preview) .cm-scroller {
 	--font-text-theme:
-		var(--font-monospace-override), "SF Mono", ui-monospace, monospace;
+		var(--mia-font-source-override, "?"), "SFMono-Regular", "SF Mono", ui-monospace, monospace;
 	font-family: var(--font-text-theme);
 
-	--font-monospace-theme: "SF Mono", ui-monospace, monospace;
+	--font-monospace-theme: var(--mia-font-source-monospace-override, "?"), SFMono-Regular, "SF Mono", ui-monospace, monospace;
+	--font-monospace: var(--font-monospace-theme);
 	--code-size: 100%;
 
 	--font-weight: var(--font-normal);
@@ -668,7 +724,7 @@ body {
 body {
 	--mia-hanging-heading-color: var(--text-normal);
 }
-.mia-hang-headings
+body:not(.mia-disable-hang-headings)
 	.markdown-source-view:not(.is-live-preview).is-readable-line-width
 	.cm-scroller {
 	.HyperMD-header span.cm-formatting-header {
@@ -686,7 +742,7 @@ body {
 	}
 }
 /* rendering on iPad differs from desktop */
-.mia-hang-headings.is-mobile
+body:not(.mia-disable-hang-headings).is-mobile
 	.markdown-source-view:not(.is-live-preview).is-readable-line-width
 	.cm-scroller
 	.HyperMD-header
@@ -695,22 +751,36 @@ body {
 }
 
 /** Indicate inline title as level 1 header (OPINIONATED) */
-.mia-inline-h1
-	.markdown-source-view:not(.is-live-preview).is-readable-line-width
+body:not(.mia-disable-inline-h1)
+	.markdown-source-view:not(.is-live-preview)
 	.cm-scroller {
-	.inline-title::before {
+	.inline-title:before {
 		content: "# ";
 		--gutter-space: 1.2em;
 		display: inline-block;
 		position: relative;
-		left: calc(-1 * var(--gutter-space));
+		left: -2ch;
 		width: var(--gutter-space);
 		text-align: right;
 		white-space: nowrap;
 		margin-right: calc(
 			-1 * var(--gutter-space)
 		); /* This cancels the space it would normally take */
+		color: var(--text-faint);
+	}
+	.inline-title {
+		padding-left: 2ch;
+	}
+}
+body:not(.mia-disable-inline-h1, .mia-disable-hang-headings)
+	.markdown-source-view:not(.is-live-preview).is-readable-line-width
+	.cm-scroller {
+	.inline-title:before {
+		left: calc(-1 * var(--gutter-space));
 		color: var(--mia-hanging-heading-color);
+	}
+	.inline-title {
+		padding-left: 0;
 	}
 }
 
@@ -896,7 +966,7 @@ body:is(.mia-icon-extlink, .mia-icon-upright).theme-dark
 /*** IMAGE ALT CLASSES ***/
 
 /** show top 250 px */
-div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
+div.image-embed[alt*="banner-top-250"] .image-wrapper img:not([width]) {
 	width: 100vw;
 	height: 250px;
 	object-fit: cover;
@@ -904,19 +974,34 @@ div.image-embed[alt^="banner-top-250"] .image-wrapper img:not([width]) {
 }
 
 /** force standard mac screen aspect ratio */
-.image-embed
-	img:is([alt^="wallpaper"], [alt^="wp"], [alt^="16:10"], [alt^="screen"]) {
+.image-embed img:is([alt*="screen"], [alt*="16:10"]) {
 	aspect-ratio: 16 / 10;
 	width: 100vw;
 	object-fit: cover;
 }
 
+/** restrict image to square shape */
+.image-embed img:is([alt*="square"], [alt*="1:1"]) {
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+/** black and white image */
+.image-embed img:is([alt*="bw"], [alt*="grayscale"], [alt*="monochrome"]) {
+	filter: grayscale();
+}
+
+/** sepia image */
+.image-embed img:is([alt*="sepia"]) {
+	filter: grayscale() sepia(0.4) brightness(0.9);
+}
+
 /** invert image when appropriate */
-.theme-dark img[alt$="invert-dark"] {
+.theme-dark img[alt*="invert-dark"] {
 	filter: invert(1) hue-rotate(180deg);
 }
 
-.theme-light img[alt$="invert-light"] {
+.theme-light img[alt*="invert-light"] {
 	filter: invert(1) hue-rotate(180deg);
 }
 
