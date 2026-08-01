@@ -659,10 +659,13 @@ body {
 /** Typography: source writing  */
 .markdown-source-view:not(.is-live-preview) .cm-scroller {
 	--font-text-theme:
-		var(--mia-font-source-override, "?"), "SFMono-Regular", "SF Mono", ui-monospace, monospace;
+		var(--mia-font-source-override, "?"), "SFMono-Regular", "SF Mono",
+		ui-monospace, monospace;
 	font-family: var(--font-text-theme);
 
-	--font-monospace-theme: var(--mia-font-source-monospace-override, "?"), SFMono-Regular, "SF Mono", ui-monospace, monospace;
+	--font-monospace-theme:
+		var(--mia-font-source-monospace-override, "?"), SFMono-Regular,
+		"SF Mono", ui-monospace, monospace;
 	--font-monospace: var(--font-monospace-theme);
 	--code-size: 100%;
 
@@ -913,6 +916,13 @@ body.mia-mono-links:is(.mia-icon-extlink, .mia-icon-upright) {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23909090' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14L21 3'/%3E%3C/svg%3E");
 	background-size: 14px;
 	padding-right: 17px;
+}
+@media print {
+	.mia-icon-upright .external-link,
+	.mia-icon-extlink .external-link {
+		background-image: none;
+		padding-right: 0;
+	}
 }
 
 /* Adjust link colours when highlighted */
