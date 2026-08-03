@@ -849,7 +849,7 @@ body.mia-mono-links:is(.mia-icon-extlink, .mia-icon-upright) {
 .markdown-source-view.mod-cm6 .cm-underline,
 .cm-s-obsidian span.cm-url,
 .metadata-property-value :is(.internal-link, .external-link),
-.markdown-rendered a:is(.internal-link, .external-link) {
+.markdown-rendered :is(.internal-link, .external-link) {
 	text-underline-offset: var(--mia-link-decoration-offset);
 	text-decoration-thickness: var(--link-decoration-thickness);
 }
