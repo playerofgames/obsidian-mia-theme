@@ -2,7 +2,13 @@
 name: Mia theme
 id: mia-theme
 settings:
-    -
+	-
+		id: heading-links
+		title: "External links"
+		type: heading
+		level: 2
+		collapsed: true
+	-
         id: mia-mono-links
         title: "Monochrome links"
         description: "When enabled, external links and underlines use the text color instead of  the accent color"
@@ -26,9 +32,15 @@ settings:
                 label: Arrow Up Right
                 value: mia-icon-upright
     -
+		id: heading-content
+		title: "Content"
+		type: heading
+		level: 2
+		collapsed: true
+    -
         id: mia-line-width
-        title: "Adjust Readable line width"
-        description: "Settings → Editor → 'Readable line length' must be enabled foa any effect; (px)"
+        title: "Adjust Readable line width (px)"
+        description: "Settings → Editor → 'Readable line length' must be enabled foa any effect)"
         type: variable-number-slider
         default: 800
         min: 500
@@ -37,8 +49,8 @@ settings:
         format: px
     -
         id: blockquote-border-thickness
-        title: "Blockquote border thickness"
-        description: "Thickness of left border for blockquotes (px)"
+        title: "Blockquote border thickness (px)"
+        description: "Thickness of left border for blockquotes"
         type: variable-number-slider
         default: 0
         min: 0
@@ -63,23 +75,29 @@ settings:
         max: 1
         step: 0.01
     -
-        id: mia-font-source-override
-        title: "Font for 'Source mode' view"
-        description: "Override the font used in 'Source mode' (defaults to 'SF Mono')"
-        type: variable-text
-        default: ""
-    -
-        id: mia-font-source-monospace-override
-        title: "Font for monospace content (code, preformatted) in 'Source mode' view"
-        description: "Override the font used in 'Source mode' monospace content (defaults to 'SF Mono')"
-        type: variable-text
-        default: ""
-    -
         id: always-reader
         title: "In 'Reading view', always use 'reader' style (serif fonts)"
         description: "Wnen enabled, to restore the default reading view for a note, add `no-reader` to its cssclasses property"
         default: false
         type: class-toggle
+    -
+		id: heading-tables
+		title: "Tables and Bases"
+		type: heading
+		level: 2
+		collapsed: true
+    -
+	    id: mia-table-hyphens
+	    title: "Hyphenation in tables"
+		description: "Automatically hyphenate content in table cells"
+	    default: false
+	    type: class-toggle
+	-
+	    id: mia-tabular-numbers
+	    title: "Tabular numbers in tables"
+		description: "Use tabular nums (all digits same width) in table cells"
+	    default: false
+	    type: class-toggle
 	-
 	    id: mia-disable-table-header-background
 	    title: "Don't shade table header row"
@@ -93,6 +111,12 @@ settings:
 	    default: false
 	    type: class-toggle
 	-
+		id: heading-source-mode
+		title: "Source mode"
+		type: heading
+		level: 2
+		collapsed: true
+	-
 	    id: mia-disable-hang-headings
 	    title: "Don't hang heading characters in margin (source mode)"
 	    description: "Heading characters '###' hang in the margin (requires 'Readable line length')"
@@ -103,7 +127,36 @@ settings:
 	    title: "Don't add a heading '#' to inline title (source mode)"
 	    description: "Prefix Inline title with '#' and hang in the margin"
 	    type: class-toggle
-	    default: false*/
+	    default: false
+	-
+        id: mia-font-source-override
+        title: "Font for 'Source mode' view"
+        description: "Override the font used in 'Source mode' (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
+        id: mia-font-source-monospace-override
+        title: "Font for monospace content (code, preformatted) in 'Source mode' view"
+        description: "Override the font used in 'Source mode' monospace content (defaults to 'SF Mono')"
+        type: variable-text
+        default: ""
+    -
+		id: heading-printing
+		title: "Export to PDF"
+		type: heading
+		level: 2
+		collapsed: true
+	-
+        id: mia-print-text-size
+        title: "Body text size when exporting to PDF (pt)"
+        description: "Headings scale with this selection"
+        type: variable-number-slider
+        default: 12
+        min: 9
+        max: 16
+        step: 0.5
+        format: pt
+*/
 
 /*** COLOURS ***/
 
@@ -119,7 +172,7 @@ settings:
 	--text-faint: #a8a8a8;
 
 	--background-primary: #f7f7f7;
-	--background-secondary: #f0f0f0;
+	--background-secondary: #efefef;
 	--background-secondary-alt: #ffffff;
 	--code-background: #ededed;
 	--divider-color: #c0c0c0;
@@ -197,12 +250,13 @@ body {
 
 	--tag-background: transparent;
 	--tag-background-hover: transparent;
-	--tag-size: 90%;
-	--tag-padding-x: 3px;
-	--tag-radius: 3px;
 	--tag-color: var(--text-muted);
-	--tag-color-hover: var(--tag-color);
+	--tag-color-hover: var(--text-faint);
 	--tag-decoration-hover: underline;
+	--tag-size: 90%;
+	--tag-padding-x: 0;
+	--tag-padding-y: 0;
+	--tag-radius: 3px;
 
 	--checklist-done-decoration: none;
 	--checklist-done-color: var(--text-muted);
@@ -316,13 +370,11 @@ div.markdown-source-view.cm-s-obsidian.mod-cm6.is-live-preview
 	border-right-width: 0px;
 }
 
-/** tag styling: bug? */
-a.tag,
-.tag,
-a.tag:hover,
-.tag:hover,
-.cm-hashtag {
-	background-color: transparent;
+/** Tag styling - default theme does not honor */
+.cm-hashtag:hover {
+	color: var(--tag-color-hover);
+	text-decoration: var(--tag-decoration-hover);
+	background-color: var(--tag-background-hover);
 }
 
 /** highlighting */
@@ -347,6 +399,19 @@ del,
 }
 
 /** table */
+.markdown-rendered :is(th, td),
+.markdown-source-view .table-cell-wrapper {
+	white-space: normal;
+}
+.mia-table-hyphens .markdown-rendered :is(th, td),
+.mia-table-hyphens .markdown-source-view .table-cell-wrapper {
+	hyphens: auto;
+}
+.mia-tabular-numbers .markdown-rendered :is(th, td),
+.mia-tabular-numbers .markdown-source-view .table-cell-wrapper {
+	font-variant-numeric: tabular-nums;
+}
+
 body:not(.mia-disable-table-header-background) {
 	--table-header-background: var(--code-background);
 	--table-header-background-hover: var(--code-background);
@@ -515,15 +580,6 @@ body {
 	--checklist-done-color: var(--text-muted);
 }
 
-/** minimal theme accommodations */
-.checkbox-square {
-	--checkbox-size: var(--font-text-size);
-}
-a.tag,
-.cm-hashtag {
-	--tag-size: 90%;
-}
-
 /** Fix Outliner plugin styling */
 .cm-formatting-list-ul {
 	margin-right: 0em;
@@ -543,7 +599,7 @@ a.tag,
 	body,
 	.theme-light,
 	.markdown-preview-view {
-		--font-text-size: 12pt !important;
+		--font-text-size: var(--mia-print-text-size, 12pt) !important;
 		--text-normal: black;
 		--list-marker-color: black;
 		color: black;
@@ -582,6 +638,7 @@ body {
 	/** font feature settings */
 	.markdown-rendered,
 	.view-content {
+		font-feature-settings: var(--mia-font-feature-settings, normal);
 		font-weight: var(--font-weight); /* bug in base product? */
 	}
 	.markdown-preview-view pre,

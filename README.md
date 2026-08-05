@@ -16,7 +16,7 @@ Mia is a lightweight Obsidian theme for macOS and iOS that builds on the default
 	- formatting noise (e.g., url in a link) is muted
 - Embedded Bases tables are styled more like regular tables
 - Single images are centered by default
-- Image alt tags, including:
+- Image manipulation using alt tags:
 	- Images `float-left` and `float-right` 
 	- Images `invert-dark` and `invert-light` depending on the theme
 	- Use `inline` to prevent an image from being centered by default
@@ -24,7 +24,7 @@ Mia is a lightweight Obsidian theme for macOS and iOS that builds on the default
 - Checkbox style for cancelled tasks `[-]`
 - CSS class `reader` for reading in a serif font (similar to Safari reader)
 - PDF export at 12pt with black text
-- Style Settings support for some of the more opinionated choices
+- Fully customisable using the "Style Settings" plugin
 
 Install Mia from the [Obsidian Theme Gallery](https://community.obsidian.md/themes/mia) page.
 
@@ -32,9 +32,9 @@ Install Mia from the [Obsidian Theme Gallery](https://community.obsidian.md/them
 
 ## Source mode
 
-![](img/mia-source-example.webp)
-
 The source mode view is designed for working with plain text, using a monospace (or similar) font. When combined with the Obsidian setting "Readable line length", the heading characters will hang in the left margin (configurable).
+
+![](img/mia-source-example.webp)
 
 By default, the monospace font "SF Mono" is used. The monospace content (code and pre-formatted text) will also use "SF Mono".
 
@@ -66,16 +66,19 @@ You can configure Mia to always use reader view, in Style Settings. (Use `no-rea
 
 Install the [Style Settings](https://community.obsidian.md/plugins/obsidian-style-settings) plugin to fine-tune the theme settings, including enabling monochrome links, changing external link icons, and adjusting the readable line width.
 
+![](img/mia-style-settings.webp)
+
 Some settings may be adjusted by setting css variables in a snippet.
 
-| Variable name                        | Description                                                           | Default |
-| ------------------------------------ | --------------------------------------------------------------------- | ------- |
-| --mia-line-width                     | Adjust Readable line width                                            | 800px   |
-| --blockquote-border-thickness        | Blockquote border thickness                                           | 0       |
-| --checklist-done-decoration          | Completed task decoration (text is muted by default)                  | none    |
-| --mia-image-muted                    | Opacity of images in dark mode                                        | 0.85    |
-| --mia-font-source-override           | Font for 'Source mode' view                                           | SF Mono |
-| --mia-font-source-monospace-override | Font for monospace content (code, preformatted) in 'Source mode' view | SF Mono |
+| Variable name                        | Description                                                                  | Default |
+| ------------------------------------ | ---------------------------------------------------------------------------- | ------- |
+| --mia-line-width                     | Adjust Readable line width                                                   | 800px   |
+| --blockquote-border-thickness        | Blockquote border thickness                                                  | 0       |
+| --checklist-done-decoration          | Completed task decoration (text is muted by default)                         | none    |
+| --mia-image-muted                    | Opacity of images in dark mode                                               | 0.85    |
+| --mia-font-source-override           | Font for 'Source mode' view                                                  | SF Mono |
+| --mia-font-source-monospace-override | Font for monospace content (code, preformatted) in 'Source mode' view        | SF Mono |
+| --mia-print-text-size                | Body text size when exporting to PDF; headings scale based on this selection | 12pt    |
 
 ---
 
