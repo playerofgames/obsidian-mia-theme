@@ -551,7 +551,7 @@ body {
 /*** LISTS AND CHECKBOXES ***/
 
 /** right-justify numbered list */
-.cm-formatting-list {
+span.cm-formatting-list:not(.cm-math) {
 	display: inline-block;
 	width: 4ch;
 	text-align: right;
